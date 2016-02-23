@@ -4,7 +4,6 @@ import org.apache.mahout.math.matrix.DoubleMatrix2D;
 import preprocessing.USPTOSearch;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 /**
  * Created by sunlei on 15/9/6.

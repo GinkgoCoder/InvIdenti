@@ -15,12 +15,10 @@ public class patentCluster
     {
         this.serial=number;
     }
-
     public void addPatent(patent p)
     {
         this.patents.add(p);
     }
-
     public ArrayList<patent> getPatents()
     {
         return patents;

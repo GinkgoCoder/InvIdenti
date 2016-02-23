@@ -6,13 +6,11 @@ import base.patent;
 import clustering.distancefunction.AbstractDistance;
 
 import clustering.distancefunction.CosDistance;
-import org.apache.mahout.math.matrix.impl.DenseDoubleMatrix2D;
 import org.carrot2.core.LanguageCode;
 import org.jblas.DoubleMatrix;
 import org.jblas.MatrixFunctions;
 
 import java.io.*;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -35,23 +33,20 @@ public class LRWeightLearning extends ParameterLearning {
         DoubleMatrix X=validations.firstarg;
         DoubleMatrix Y=validations.secondarg;
 
+        /**
+         * double array has one extra dimension in order to obtain a threshold using Logistic Regression
+         */
         double[][] var0 = new double[numberofOptions + 1][1];
         for (int i = 0; i < numberofOptions + 1; i++) {
             var0[i][0] = 1.0;
         }
         DoubleMatrix thetas = new DoubleMatrix(var0);
 
-
-
-
         int maxIteration=5000;
         double alpha=9.3;
         double lambda=0;
 
-
-
         double errorForValidation=calculateTheError(X,Y,thetas);
-
         double previous_error=errorForValidation;
 
         logger.info("Generating training matrix...");
@@ -124,7 +119,7 @@ public class LRWeightLearning extends ParameterLearning {
 
 
     /**
-     * Calculate the error of the training or the validation
+     * Calculate the error of the training for the validation
      * @param X feature matrix
      * @param Y target matrix
      * @param thetas weights vector

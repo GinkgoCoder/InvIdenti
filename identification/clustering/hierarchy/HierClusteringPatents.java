@@ -1,6 +1,5 @@
 package clustering.hierarchy;
 
-import base.patent;
 import base.patentCluster;
 
 import clustering.distancefunction.AbstractDistance;

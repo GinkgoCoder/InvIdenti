@@ -1,10 +1,6 @@
 package clustering;
 
-import base.patent;
-import base.patentCluster;
-import clustering.distancefunction.CosDistance;
 import clustering.hierarchy.HierCluster;
-import clustering.hierarchy.HierClusteringPatents;
 import clustering.hierarchy.HierCore;
 
 import java.util.ArrayList;

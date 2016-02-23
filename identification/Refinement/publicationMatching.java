@@ -5,7 +5,6 @@ import base.pair;
 import base.patent;
 import base.patentCluster;
 import clustering.Dbscan.DBCluster;
-import org.apache.commons.collections.ArrayStack;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -2,37 +2,20 @@ package clustering;
 
 
 import base.pair;
-import base.patent;
-import clustering.distancefunction.CosDistance;
 import info.debatty.java.stringsimilarity.*;
 import com.carrotsearch.hppc.IntArrayList;
-import com.carrotsearch.hppc.IntIntHashMap;
-import com.carrotsearch.hppc.cursors.IntIntCursor;
-import org.apache.commons.math3.linear.Array2DRowRealMatrix;
-import org.apache.commons.math3.linear.RealMatrix;
-import org.apache.commons.math3.linear.SingularValueDecomposition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.mahout.math.matrix.DoubleMatrix2D;
-import org.apache.mahout.math.matrix.impl.DenseDoubleMatrix2D;
 import org.carrot2.core.Document;
 import org.carrot2.core.LanguageCode;
-import org.carrot2.text.preprocessing.LabelFormatter;
 import org.carrot2.text.preprocessing.PreprocessingContext;
 import org.carrot2.text.preprocessing.pipeline.BasicPreprocessingPipeline;
-import org.carrot2.text.preprocessing.pipeline.CompletePreprocessingPipeline;
 import org.carrot2.text.preprocessing.pipeline.IPreprocessingPipeline;
-import org.carrot2.text.vsm.ReducedVectorSpaceModelContext;
-import org.carrot2.text.vsm.TermDocumentMatrixBuilder;
-import org.carrot2.text.vsm.TermDocumentMatrixReducer;
-import org.carrot2.text.vsm.VectorSpaceModelContext;
-import org.jblas.DoubleMatrix;
 
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 
 
 /**

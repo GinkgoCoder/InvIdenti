@@ -4,12 +4,9 @@ import base.patent;
 import info.debatty.java.stringsimilarity.NormalizedLevenshtein;
 import org.apache.logging.log4j.Logger;
 import org.ini4j.Wini;
-import us.codecraft.webmagic.model.formatter.BasicTypeFormatter;
 
-import javax.naming.ldap.HasControls;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -122,9 +119,6 @@ public abstract class AbstractDistance {
      */
     public double compareAssignee (String str1,String str2,String code1,String code2) {
 
-
-
-
         if(code1!=null&&code2!=null&&code1.length()!=0&&code2.length()!=0) {
             if (code1.equals(code2)) {
 
@@ -138,7 +132,6 @@ public abstract class AbstractDistance {
         }
 
 
-
         if (str1==null || str2==null||str1.length()==0||str2.length()==0) {
           if (this.pCorrelation)  {
               return 0.0;
@@ -146,7 +139,6 @@ public abstract class AbstractDistance {
               return 1.0;
           }
         }
-
 
         double result=0;
 
@@ -197,7 +189,7 @@ public abstract class AbstractDistance {
         Hashtable<String,ArrayList<String>> var0=new Hashtable<>();
         Hashtable<String,ArrayList<String>> var1=new Hashtable<>();
         /**
-         * Split the technology class by main class and subclass
+         * Split the technology class into integral class and subclass
          *
          */
         for(String var2:strs_1) {
@@ -312,8 +304,6 @@ public abstract class AbstractDistance {
 
         }
 
-
-
         String[] coAuthorNames1=coAuthor1.split(";");
         String[] coAuthorNames2=coAuthor2.split(";");
         String[] lessNames;
@@ -415,7 +405,12 @@ public abstract class AbstractDistance {
     }
 
 
-    public  double getDistance(double lat1, double lng1, double lat2, double lng2) {
+    /**
+     * Gets the geographical distance from the latitute and longitude data
+     * @param latitute and longitude of the two places
+     * @return the distance between the two places
+     */
+    public double getDistance(double lat1, double lng1, double lat2, double lng2) {
 
         double a = lat1 - lat2;
         double b = lng1 - lng2;
@@ -425,6 +420,7 @@ public abstract class AbstractDistance {
         s = Math.round(s * 10000) / 10000;
         return s;
     }
+
     /**
      * Set the options of the distance
      * @param options the boolean array for the options
@@ -508,7 +504,7 @@ public abstract class AbstractDistance {
 
 
     public String getWeights(){
-        return this.weightAbstract+" "+weightAbstract+" "+weightClaims+" "+weightTitle+" "+weightFirstName+" "+weightLastName+" "+weightCategory+" "+weightAssignee+" "+weightCoAuthor+" "+weightLocation;
+        return this.weightAbstract+" "+weightDes+" "+weightClaims+" "+weightTitle+" "+weightFirstName+" "+weightLastName+" "+weightCategory+" "+weightAssignee+" "+weightCoAuthor+" "+weightLocation;
     }
 
 

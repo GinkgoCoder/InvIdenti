@@ -1,29 +1,16 @@
 package Evaluation;
 
-import DatasetGenerator.PatentsGenerator;
 import Refinement.Refinement;
 import base.indexCluster;
-import base.pair;
 import base.patent;
-import base.textOperator;
-import clustering.NameHierClustering;
 import clustering.distancefunction.AbstractDistance;
-import clustering.distancefunction.CosDistance;
-import clustering.hierarchy.HierCluster;
-import clustering.hierarchy.HierClusteringPatents;
-import clustering.invClustering;
 import clustering.patentClustering;
-import info.debatty.java.stringsimilarity.NormalizedLevenshtein;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.carrot2.core.LanguageCode;
-import org.jblas.DoubleMatrix;
-import org.jblas.MatrixFunctions;
 import preprocessing.*;
 
-import java.sql.Ref;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by leisun on 15/11/3.
@@ -53,23 +40,23 @@ public class Evaluation {
     public double evaluate(AbstractDistance distance,double threshold,patentClustering method){
 
 
-        method.ininitialize(patents,true);
+        method.ininitialize(patents,false);
 
         method.setThreshold(threshold);
         logger.info("Clustering...");
         method.Cluster(distance);
 
-        logger.info("Publication-Patent Matching...");
-        Refinement refinement=new Refinement(method.getClusters(),method.getClustersIndex());
+        //logger.info("Publication-Patent Matching...");
+        //Refinement refinement=new Refinement(method.getClusters(),method.getClustersIndex());
        // textOperator.storeText("result.txt",false,method.toString());
 
        // textOperator.storeText("BenchmarkClusteringResult.txt",false,method.toString());
 
-        double FMeasurement=getFScoreofClustering(refinement.clusters_index_r,patentsID);
+        //double FMeasurement=getFScoreofClustering(refinement.clusters_index_r,patentsID);
 
 
 
-        // double FMeasurement=getFScoreofClustering(refinement.clusters_index_r,patentsID);
+        double FMeasurement=getFScoreofClustering(method.getClustersIndex(),patentsID);
 
         logger.warn("F Measurement:"+ FMeasurement);
 

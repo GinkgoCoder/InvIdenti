@@ -6,7 +6,6 @@ import org.apache.mahout.math.matrix.impl.DenseDoubleMatrix2D;
 import org.jblas.DoubleMatrix;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  *
@@ -15,7 +14,7 @@ import java.util.HashSet;
 public class CosDistance extends AbstractDistance {
 
     /**
-     * calculate the distance between two patents as the similarity
+     * calculates the cosine distance between two patents as their similarity
 
      * @return return the similarity between the two patents
      */
@@ -24,7 +23,7 @@ public class CosDistance extends AbstractDistance {
 
     public CosDistance()
     {
-        super();
+        super();    //sets initial options from .ini file
         this.distanceType="Cosine Distance";
     }
 
@@ -202,7 +201,7 @@ public class CosDistance extends AbstractDistance {
         shareStem.addAll(stems1);
         shareStem.retainAll(stems2);
 */
-//        if (shareStem.size()==0) return 0;
+//       if (shareStem.size()==0) return 0;
 /*
 
         int[] st1=new int[shareStem.size()];

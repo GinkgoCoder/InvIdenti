@@ -14,19 +14,19 @@ import java.util.ArrayList;
 public class Training {
     private ArrayList<patent> patents;
     private ArrayList<String> patentsID;
-    private  ParameterLearning method;
+    private ParameterLearning method;
 
     public Training(ArrayList<patent> patents, ArrayList<String> patentsID, ParameterLearning method) {
         this.patents=patents;
         this.patentsID=patentsID;
-
-
         this.method=method;
     }
 
     public pair<AbstractDistance,Double> estimateParameter() {
 
         method.setInitialization(true);
+
+        //Initializes Parameter Learning by setting the patents and patentsID arraylists
         method.initilize(patents,patentsID,true);
         CosDistance distance=(CosDistance)method.estimateDistanceFunction();
         return new pair<>(distance,method.getThreshold());

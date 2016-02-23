@@ -1,9 +1,5 @@
 package clustering;
 
-import base.patent;
-
-import clustering.hierarchy.HierCluster;
-
 import info.debatty.java.stringsimilarity.NormalizedLevenshtein;
 
 import preprocessing.IniFile;

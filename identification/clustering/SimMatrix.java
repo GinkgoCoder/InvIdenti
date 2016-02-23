@@ -6,7 +6,6 @@ import base.textOperator;
 import clustering.distancefunction.AbstractDistance;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -214,7 +213,7 @@ public class SimMatrix {
      */
     public double getSimbetweenPatents(int i,int j) {
         int b,l=0;
-        if (shuffledIndex.size()==0||shuffledIndex==null)
+        if (shuffledIndex==null||shuffledIndex.size()==0)
         {
             if(i>j) {
                b=i;

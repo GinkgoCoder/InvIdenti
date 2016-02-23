@@ -5,7 +5,6 @@ import base.indexCluster;
 import base.patent;
 import clustering.SimMatrix;
 import clustering.distancefunction.AbstractDistance;
-import org.ini4j.Wini;
 
 
 import java.util.ArrayList;

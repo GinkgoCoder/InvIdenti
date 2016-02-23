@@ -2,8 +2,6 @@ package clustering.Dbscan;
 
 import base.patentCluster;
 import clustering.distancefunction.AbstractDistance;
-import clustering.hierarchy.HierCluster;
-import clustering.hierarchy.HierCore;
 import clustering.patentClustering;
 
 import java.util.ArrayList;

@@ -1,6 +1,5 @@
 package clustering.hierarchy;
 
-import base.pair;
 import base.patent;
 import clustering.SimMatrix;
 import clustering.distancefunction.AbstractDistance;
@@ -78,10 +77,10 @@ public class HierCore {
 
 
         double start=System.currentTimeMillis();
-        //this.simMatrix=new SimMatrix(patents,distance);
+        this.simMatrix=new SimMatrix(patents,distance);
         //this.simMatrix.storeMatrix("distanceMatrix.txt");
-        this.simMatrix=new SimMatrix("distanceMatrix5000.txt");
-        this.simMatrix.setShuffledIndex(shuffleIndex);
+//        this.simMatrix=new SimMatrix("distanceMatrix5000.txt");
+  //      this.simMatrix.setShuffledIndex(shuffleIndex);
         double end=System.currentTimeMillis();
         System.out.println(end-start);
 

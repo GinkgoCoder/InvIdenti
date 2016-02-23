@@ -1,19 +1,8 @@
 package Evaluation;
 
 import base.pair;
-import base.patent;
-import clustering.distancefunction.AbstractDistance;
-import clustering.distancefunction.CosDistance;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.carrot2.core.LanguageCode;
 import org.jblas.DoubleMatrix;
 import org.jblas.MatrixFunctions;
-import preprocessing.IniFile;
-import preprocessing.patentPreprocessingTF;
-
-
-import java.util.ArrayList;
 
 /**
  * Created by leisun on 15/12/22.

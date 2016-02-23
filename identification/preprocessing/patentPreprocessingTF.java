@@ -1,12 +1,10 @@
 package preprocessing;
 
-import base.pair;
 import base.patent;
 import com.carrotsearch.hppc.IntArrayList;
 import com.carrotsearch.hppc.IntIntHashMap;
 import com.carrotsearch.hppc.cursors.IntIntCursor;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
-import org.apache.commons.math3.linear.BlockRealMatrix;
 import org.apache.commons.math3.linear.SingularValueDecomposition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,11 +12,8 @@ import org.apache.mahout.math.matrix.DoubleMatrix2D;
 import org.apache.mahout.math.matrix.impl.DenseDoubleMatrix2D;
 import org.carrot2.core.Document;
 import org.carrot2.core.LanguageCode;
-import org.carrot2.matrix.factorization.PartialSingularValueDecompositionFactory;
-import org.carrot2.text.preprocessing.LabelFormatter;
 import org.carrot2.text.preprocessing.PreprocessingContext;
 import org.carrot2.text.preprocessing.pipeline.BasicPreprocessingPipeline;
-import org.carrot2.text.preprocessing.pipeline.CompletePreprocessingPipeline;
 import org.carrot2.text.preprocessing.pipeline.IPreprocessingPipeline;
 import org.carrot2.text.vsm.*;
 import org.jblas.DoubleMatrix;
@@ -29,13 +24,17 @@ import java.util.*;
 /**
  * Created by sunlei on 15/9/7.
  */
+
+/**
+ *  Main <code>preprocessing</code> class for the text mining process
+ *  performs stop word removal, stemming, term weighting and singular value decomposition
+ */
 public class patentPreprocessingTF {
     ArrayList<Document> docs = new ArrayList<>();
     ArrayList<patent> patents = new ArrayList<>();
     LanguageCode language = LanguageCode.ENGLISH;
     public int clusterCount = 15;
     public boolean useDimensionalityReduction = false;
-
     public IPreprocessingPipeline preprocessingPipeline = new BasicPreprocessingPipeline();
     public final TermDocumentMatrixBuilder matrixBuilder = new TermDocumentMatrixBuilder();
     public final TermDocumentMatrixReducer matrixReducer = new TermDocumentMatrixReducer();
@@ -54,20 +53,20 @@ public class patentPreprocessingTF {
     public void setLanguage(LanguageCode code) {
         this.language = code;
     }
-
     public void setClusterCount(int ClusterCount) {
         this.clusterCount = ClusterCount;
     }
-
     public void setUseDimensionalityReduction(boolean r) {
         this.useDimensionalityReduction = r;
     }
-
     public ArrayList<patent> getPatents()
     {
         return this.patents;
     }
 
+    /**
+     *Note: can be greatly parallelized if each runs on own thread
+     */
     public void preprocess()
     {
 //      this.generateTextVector("FullText");
@@ -75,7 +74,6 @@ public class patentPreprocessingTF {
         this.generateTextVector("Claims");
         this.generateTextVector("Description");
         this.generateTextVector("Title");
-
     }
 
     public void generateTextVector(String str)
@@ -85,13 +83,16 @@ public class patentPreprocessingTF {
         for (patent p : patents)
         {
             String temp=" ";
-
-            //        if (str.equalsIgnoreCase("FullText")) temp=p.getAbs() + " " + p.getClaims() + " " + p.getDescription();
+            // if (str.equalsIgnoreCase("FullText")) temp=p.getAbs() + " " + p.getClaims() + " " + p.getDescription();
             if (str.equalsIgnoreCase("Abstract")) temp=p.getAbs();
             if (str.equalsIgnoreCase("Claims"))   temp=p.getClaims();
             if (str.equalsIgnoreCase("Description")) temp=p.getDescription();
             if (str.equalsIgnoreCase("Title")) temp=p.getTitle();
 
+            /**
+             * @params title of the document
+             * @params summary of the document
+             */
             docs.add(new Document("",temp));
         }
 
@@ -129,41 +130,27 @@ public class patentPreprocessingTF {
             }
 
             DoubleMatrix2D var19;
-
-
-
-
-
-
             var19 = var17.termDocumentMatrix;
-
-
             var19=normalize(var19);
 
+            /**
+             * Number of rows before Singular Value Decomposition
+             */
             System.out.println(var19.rows());
-
             logger.info("Singular Value Decomposition...");
-
-
-
-
             Array2DRowRealMatrix original=new Array2DRowRealMatrix(var19.toArray());
-
             SingularValueDecomposition decomposition=new SingularValueDecomposition(original);
 
-
-
-
             double[] singularvalues=decomposition.getSingularValues();
-
             DoubleMatrix sv=new DoubleMatrix(singularvalues);
             double sum=sv.transpose().mmul(sv).get(0);
-
             double sum1=0;
-
             int numofs=0;
             for (double d:singularvalues) {
                 sum1+=d*d;
+                /**
+                 * Generates 300 dimensions after Singular Value Decomposition
+                 */
                 if (numofs>299) break;
                 numofs++;
             }
@@ -173,16 +160,12 @@ public class patentPreprocessingTF {
 
          //  System.out.println(((Array2DRowRealMatrix)decomposition.getU()).getColumnDimension());
 
+            //note: what does this do?
             decomposition.getU().copySubMatrix(0,original.getRowDimension()-1,0,numofs-1,u);
-
             DoubleMatrix U1=new DoubleMatrix(u);
-
             DoubleMatrix M=new DoubleMatrix(original.getData());
-
             M=U1.transpose().mmul(M);
-
             var19=new DenseDoubleMatrix2D(M.toArray2());
-
             System.out.println(var19.rows());
 
             IntArrayList intA=new IntArrayList();
@@ -204,10 +187,6 @@ public class patentPreprocessingTF {
         }
 
         logger.info("Finish the text preprocessing...");
-
-
-
-
     }
 
 

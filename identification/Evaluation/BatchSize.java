@@ -166,8 +166,6 @@ public class BatchSize {
         resultt[1]=Math.sqrt(resultt[1]);
 
 
-        storeText("pq.txt",true,temp+" "+result[0]+" "+result[1]+"\n");
-        storeText("time.txt",true,tempt+" "+resultt[0]+" "+resultt[1]+"\n");
 
         System.out.println(result[0]+" "+result[1]);
 

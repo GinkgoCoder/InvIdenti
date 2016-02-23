@@ -1,7 +1,5 @@
 package base;
 
-import java.io.IOException;
-
 /**
  * Created by sunlei on 15/12/25.
  */

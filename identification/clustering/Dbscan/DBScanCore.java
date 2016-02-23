@@ -5,7 +5,6 @@ import clustering.SimMatrix;
 import clustering.distancefunction.AbstractDistance;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by leisun on 15/11/25.
@@ -39,10 +38,10 @@ public class DBScanCore {
     public void buildCluster(ArrayList<patent> patents, AbstractDistance distance,ArrayList<Integer> shuffleIndex)
     {
         double start=System.currentTimeMillis();
-        //this.simMatrix=new SimMatrix(patents,distance);
+        this.simMatrix=new SimMatrix(patents,distance);
         //this.simMatrix.storeMatrix("distanceMatrix.txt");
-        this.simMatrix=new SimMatrix("distanceMatrix5000.txt");
-        this.simMatrix.setShuffledIndex(shuffleIndex);
+//        this.simMatrix=new SimMatrix("distanceMatrix5000.txt");
+     //   this.simMatrix.setShuffledIndex(shuffleIndex);
         double end=System.currentTimeMillis();
         System.out.println("Reading Matrix Time:"+(end-start));
 
@@ -87,9 +86,9 @@ public class DBScanCore {
 
     public void signAllCorePts(){
         int corenumber=0;
-        for(int i=0;i<this.simMatrix.getShuffledIndex().size();i++) {
+        for(int i=0;i<this.simMatrix.getSimMatrix().size();i++) {
             int temp=0;
-            for(int j=0;j<simMatrix.getShuffledIndex().size();j++) {
+            for(int j=0;j<simMatrix.getSimMatrix().size();j++) {
                 if (i!=j&&simMatrix.getSimbetweenPatents(i,j)>=this.radius) {
                     temp++;
                 }
@@ -125,7 +124,7 @@ public class DBScanCore {
 
     public ArrayList<Integer> getNeighbours(int i) {
         ArrayList<Integer> neighbours=new ArrayList<>();
-        for(int j=0;j<simMatrix.getShuffledIndex().size();j++) {
+        for(int j=0;j<simMatrix.getSimMatrix().size();j++) {
             if (i!=j&&simMatrix.getSimbetweenPatents(i,j)>radius) {
                 neighbours.add(j);
             }

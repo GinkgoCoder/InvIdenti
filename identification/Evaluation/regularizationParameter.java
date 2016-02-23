@@ -5,13 +5,11 @@ import base.patent;
 import clustering.distancefunction.CosDistance;
 import org.jblas.DoubleMatrix;
 import org.jblas.MatrixFunctions;
-import org.jblas.util.Random;
 import preprocessing.IniFile;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by sunlei on 15/12/26.

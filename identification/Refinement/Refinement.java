@@ -3,12 +3,8 @@ package Refinement;
 import base.indexCluster;
 import base.patent;
 import base.patentCluster;
-import org.apache.commons.collections.iterators.CollatingIterator;
-import org.apache.commons.math.stat.clustering.Cluster;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 
 /**

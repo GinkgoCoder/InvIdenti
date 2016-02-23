@@ -5,7 +5,6 @@ import base.pair;
 import base.patent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.appender.SyslogAppender;
 import org.carrot2.core.LanguageCode;
 
 import java.io.*;
@@ -30,6 +29,7 @@ public class PatentsGenerator {
     LanguageCode language = LanguageCode.ENGLISH;
     private String IDType="Upper Bound";
 
+    //not used currently
     public PatentsGenerator(String databasePath) {
         this.databasePath=databasePath;
     }
@@ -38,6 +38,7 @@ public class PatentsGenerator {
         this.IDType=IDType;
     }
 
+    //not used currently
     public PatentsGenerator(String databasePath,String textsPath) {
         this.databasePath=databasePath;
         this.textsPath=textsPath;
@@ -56,10 +57,14 @@ public class PatentsGenerator {
 
     }
 
+    //database path refers to the infodata path, i.e the file PatTest.sqlite
+    //the three arguments set all the paths and opens connections to the database
     public PatentsGenerator(String databasePath,String textsPath,String trainingDataPath) {
         this.databasePath=databasePath;
         this.textsPath=textsPath;
         this.trainingDataPath=trainingDataPath;
+
+        //connect to infodata database and trainingdata database
         try {
 
             Class.forName("org.sqlite.JDBC");
@@ -123,24 +128,31 @@ public class PatentsGenerator {
 
         patent var2=null;
         var1=patentNumber;
+
+        //adds leading zero if the patentNumber does not contain 8 chars
         if (patentNumber.length()<8) {
             for(int i=0;i<8-patentNumber.length();i++) {
                 var1="0"+var1;
             }
         }
 
-        String sql="Select * from "+table+" where "+table+".patent"+"='"+var1+"';";
+        String sql="Select * from "+ table +" where " + table + ".patent" + "='" + var1 + "';";
 
 
         try {
 
             ResultSet var0=stmt.executeQuery(sql);
             String abs=readText(this.textsPath + patentNumber + "/" + "Abstract.txt");
+
+            //gets first 300 words as stated by research
             abs=getFirstWords(300,abs);
+
             String claims=readText(this.textsPath + patentNumber + "/" + "Claims.txt");
             claims=getFirstWords(300,claims);
+
             String description=readText(this.textsPath+patentNumber+"/"+"Description.txt");
             description=getFirstWords(300,description);
+
             String title=readText(this.textsPath+patentNumber+"/"+"Title.txt");
             String coAuthor="";
 
@@ -270,8 +282,8 @@ public class PatentsGenerator {
             ResultSet var0=this.stmtTraining.executeQuery(sql);
             int var1=startIndex;
 
-
-           do {
+           //seems like a code that is not used
+            do {
 
                 if (var1 < 2) {
                     break;
@@ -284,7 +296,10 @@ public class PatentsGenerator {
 
             int var2=size;
 
+            /*
+            commented out by @Sanchit
             int num1=0;
+            */
             while (var0.next()) {
 
                 if (var2==0) {
